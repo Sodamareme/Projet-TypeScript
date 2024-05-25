@@ -1,0 +1,49 @@
+/* Custom CSS to complement Tailwind CSS */
+
+/* Optional: Add any global styles you need */
+body {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Custom styles for the navigation bar */
+  nav.bg-blue-600 {
+    background-color: #1D4ED8; /* Tailwind's blue-600 color */
+  }
+  
+  /* Custom styles for links */
+  nav a {
+    color: #ffffff;
+    transition: color 0.3s;
+  }
+  
+  nav a:hover {
+    color: #d1d5db; /* Tailwind's gray-300 color */
+  }
+  
+  /* Custom styles for the cards */
+  .grid a {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .grid a:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Custom styles for the headings */
+  h1, h2, h3 {
+    color: #1F2937; /* Tailwind's gray-900 color */
+  }
+  
+  h1 {
+    font-size: 2rem; /* Adjust as necessary */
+  }
+  
+  h2 {
+    font-size: 1.75rem; /* Adjust as necessary */
+  }
+  
+  h3 {
+    font-size: 1.25rem; /* Adjust as necessary */
+  }
+  
