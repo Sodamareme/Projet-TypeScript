@@ -1,1 +1,17 @@
-[]
+{
+    "Cargo": [
+        {
+            "idcargo": 1,
+            "numero": "CRG001",
+            "poids_max": 5000,
+            "prix_total": 30000,
+            "lieu_depart": "Paris",
+            "lieu_arrivee": "Londres",
+            "distance_km": 350,
+            "type": "maritime",
+            "etat_avancement": "en cours",
+            "etat_globale": "ouvert"
+        }
+    
+    ]
+}

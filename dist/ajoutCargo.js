@@ -1,23 +1,59 @@
 (function () {
     var cargoForm = document.getElementById('cargoForm');
     var cargoTableBody = document.getElementById('cargoTableBody');
+    
     var saveToLocalStorage = function (cargos) {
         localStorage.setItem('cargos', JSON.stringify(cargos));
     };
+    
     var loadFromLocalStorage = function () {
         var cargosJSON = localStorage.getItem('cargos');
         return cargosJSON ? JSON.parse(cargosJSON) : [];
     };
+
+    var saveLastCargoNumber = function (number) {
+        localStorage.setItem('lastCargoNumber', number);
+    };
+
+    var loadLastCargoNumber = function () {
+        var lastCargoNumber = localStorage.getItem('lastCargoNumber');
+        return lastCargoNumber ? parseInt(lastCargoNumber, 10) : 0;
+    };
+
+    var generateCargoNumber = function () {
+        var lastCargoNumber = loadLastCargoNumber();
+        var newCargoNumber = lastCargoNumber + 1;
+        saveLastCargoNumber(newCargoNumber);
+        return newCargoNumber;
+    };
+
     var displayCargos = function (cargos) {
         cargoTableBody.innerHTML = '';
         cargos.forEach(function (cargo, index) {
             var newRow = document.createElement('tr');
-            newRow.innerHTML = "\n                <td class=\"border px-4 py-2\">".concat(cargo.numero, "</td>\n                <td class=\"border px-4 py-2\">").concat(cargo.type, "</td>\n                <td class=\"border px-4 py-2\">").concat(cargo.poidsMax, "</td>\n                <td class=\"border px-4 py-2\">").concat(cargo.distance, "</td>\n                <td class=\"border px-4 py-2\">").concat(cargo.depart, "</td>\n                <td class=\"border px-4 py-2\">").concat(cargo.arrivee, "</td>\n                <td class=\"border px-4 py-2\"><button class=\"btn-delete bg-red-500 text-white px-2 py-1 rounded\" data-index=\"").concat(index, "\">Supprimer</button></td>\n                <td class=\"border px-4 py-2\"><button class=\"btn-details bg-blue-500 text-white px-2 py-1 rounded\" data-index=\"").concat(index, "\">D\u00E9tails</button></td>\n            ");
+            newRow.innerHTML = `
+                <td class="border px-4 py-2">${cargo.numero}</td>
+                <td class="border px-4 py-2">${cargo.type}</td>
+                <td class="border px-4 py-2">${cargo.poidsMax}</td>
+                <td class="border px-4 py-2">${cargo.distance}</td>
+                <td class="border px-4 py-2">${cargo.depart}</td>
+                <td class="border px-4 py-2">${cargo.arrivee}</td>
+                <td class="border px-4 py-2">${cargo.Ldepart}</td>
+                <td class="border px-4 py-2">${cargo.Larrivee}</td>
+                <td class="border px-4 py-2"><button class="btn-delete bg-red-500 text-white px-2 py-1 rounded" data-index="${index}">Supprimer</button></td>
+                <td class="border px-4 py-2"><button class="btn-details bg-blue-500 text-white px-2 py-1 rounded" data-index="${index}">Détails</button></td>
+                <td class="border px-4 py-2"><button class="btn-add-product bg-green-500 text-white px-2 py-1 rounded" data-index="${index}">Ajouter Produit</button></td>
+            `;
             cargoTableBody.appendChild(newRow);
         });
     };
+
     var cargos = loadFromLocalStorage();
     displayCargos(cargos);
+
+    // Générer et afficher le numéro de cargaison au chargement de la page
+    document.getElementById('numero').value = generateCargoNumber();
+
     cargoForm.addEventListener('submit', function (event) {
         event.preventDefault();
         var numero = document.getElementById('numero').value;
@@ -26,97 +62,48 @@
         var distance = document.getElementById('distance').value;
         var depart = document.getElementById('depart').value;
         var arrivee = document.getElementById('arrivee').value;
-        var newCargo = { numero: numero, type: type, poidsMax: poidsMax, distance: distance, depart: depart, arrivee: arrivee };
+        var Ldepart = document.getElementById('Ldepart').value;
+        var Larrivee = document.getElementById('Larrivee').value;
+
+        var newCargo = { 
+            numero: numero, 
+            type: type, 
+            poidsMax: poidsMax, 
+            distance: distance, 
+            depart: depart, 
+            arrivee: arrivee, 
+            Ldepart: Ldepart, 
+            Larrivee: Larrivee 
+        };
+
         cargos.push(newCargo);
         saveToLocalStorage(cargos);
         displayCargos(cargos);
         cargoForm.reset();
+
+        // Générer et afficher le prochain numéro de cargaison après réinitialisation du formulaire
+        document.getElementById('numero').value = generateCargoNumber();
     });
+    //Boutons
     cargoTableBody.addEventListener('click', function (event) {
-        if (event.target instanceof HTMLButtonElement) {
+        if (event.target.classList.contains('btn-delete')) {
             var targetButton = event.target;
             var cargoIndex = parseInt(targetButton.getAttribute('data-index') || '0', 10);
+            
+            cargos.splice(cargoIndex, 1);
+            saveToLocalStorage(cargos);
+            displayCargos(cargos);  
             if (targetButton.classList.contains('btn-delete')) {
                 cargos.splice(cargoIndex, 1);
                 saveToLocalStorage(cargos);
                 displayCargos(cargos);
-            }
-            else if (targetButton.classList.contains('btn-details')) {
-                alert("D\u00E9tails de la cargaison : ".concat(JSON.stringify(cargos[cargoIndex])));
+            } else if (targetButton.classList.contains('btn-details')) {
+                alert(`Détails de la cargaison : ${JSON.stringify(cargos[cargoIndex])}`);
+            } else if (targetButton.classList.contains('btn-add-product')) {
+                // Logique pour ajouter un produit à la cargaison
+                var cargo = cargos[cargoIndex];
+                alert(`Ajouter un produit à la cargaison ${cargo.numero}`);
             }
         }
     });
 })();
-
-
-// GGhj
-// (() => {
-//     var __webpack_exports__ = {};
-//     /*!**********************!*\
-//       !*** ./src/index.ts ***!
-//       \**********************/
-//     var text = 'Hello TypeScript';
-//     console.log(text);
-//     document.addEventListener('DOMContentLoaded', function () {
-//         var cargoForm = document.getElementById('cargoForm');
-//         var cargoTableBody = document.getElementById('cargoTableBody');
-//         // Fonction pour sauvegarder les données dans Local Storage
-//         var saveToLocalStorage = function (cargos) {
-//             localStorage.setItem('cargos', JSON.stringify(cargos));
-//         };
-//         // Fonction pour charger les données depuis Local Storage
-//         var loadFromLocalStorage = function () {
-//             var cargos = localStorage.getItem('cargos');
-//             return cargos ? JSON.parse(cargos) : [];
-//         };
-//         // Fonction pour afficher les données dans le tableau
-//         var displayCargos = function (cargos) {
-//             cargoTableBody.innerHTML = '';
-//             cargos.forEach(function (cargo, index) {
-//                 var newRow = document.createElement('tr');
-//                 newRow.innerHTML = "\n                <td class=\"border px-4 py-2\">".concat(cargo.numero, "</td>\n                <td class=\"border px-4 py-2\">").concat(cargo.type, "</td>\n                <td class=\"border px-4 py-2\">").concat(cargo.poidsMax, "</td>\n                <td class=\"border px-4 py-2\">").concat(cargo.distance, "</td>\n                <td class=\"border px-4 py-2\">").concat(cargo.depart, "</td>\n                <td class=\"border px-4 py-2\">").concat(cargo.arrivee, "</td>\n                <td class=\"border px-4 py-2\"><button class=\"btn-delete bg-red-500 text-white px-2 py-1 rounded\" data-index=\"").concat(index, "\">Supprimer</button></td>\n            ");
-//                 cargoTableBody.appendChild(newRow);
-//             });
-//         };
-//         // Charger et afficher les cargaisons au chargement de la page
-//         var cargos = loadFromLocalStorage();
-//         displayCargos(cargos);
-    
-          
-//         cargoForm.addEventListener('submit', function (event) {
-//             event.preventDefault();
-//             // Récupérer les valeurs des champs du formulaire
-//             var numero = document.getElementById('numero').value;
-//             var type = document.getElementById('type').value;
-//             var poidsMax = document.getElementById('poidsMax').value;
-//             var distance = document.getElementById('distance').value;
-//             var depart = document.getElementById('depart').value;
-//             var arrivee = document.getElementById('arrivee').value;
-//             // Créer une nouvelle cargaison
-//             var newCargo = { numero: numero, type: type, poidsMax: poidsMax, distance: distance, depart: depart, arrivee: arrivee };
-//             // Ajouter la nouvelle cargaison aux cargaisons existantes
-//             cargos.push(newCargo);
-//             // Sauvegarder les cargaisons dans Local Storage
-//             saveToLocalStorage(cargos);
-//             // Afficher les cargaisons mises à jour
-//             displayCargos(cargos);
-//             // Réinitialiser le formulaire
-//             cargoForm.reset();
-//         });
-
-//         // Ajouter un gestionnaire d'événements pour les boutons de suppression
-//         cargoTableBody.addEventListener('click', function (event) {
-//             if (event.target.classList.contains('btn-delete')) {
-//                 var cargoIndex = parseInt(event.target.getAttribute('data-index'));
-//                 // Supprimer la cargaison avec l'indice cargoIndex
-//                 cargos.splice(cargoIndex, 1);
-//                 // Sauvegarder les cargaisons dans Local Storage
-//                 saveToLocalStorage(cargos);
-//                 // Afficher les cargaisons mises à jour
-//                 displayCargos(cargos);
-//             }
-//         });
-//     });
-    
-// })();
-

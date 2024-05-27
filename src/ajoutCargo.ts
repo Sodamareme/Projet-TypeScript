@@ -1,6 +1,7 @@
 (() => {
     const cargoForm = document.getElementById('cargoForm') as HTMLFormElement;
     const cargoTableBody = document.getElementById('cargoTableBody') as HTMLTableSectionElement;
+    const addButton = document.getElementById('addButton') as HTMLButtonElement;
 
     interface Cargo {
         numero: string;
@@ -9,6 +10,8 @@
         distance: string;
         depart: string;
         arrivee: string;
+        Ldepart:string;
+        Larrivee:string;
     }
 
     const saveToLocalStorage = (cargos: Cargo[]) => {
@@ -31,8 +34,11 @@
                 <td class="border px-4 py-2">${cargo.distance}</td>
                 <td class="border px-4 py-2">${cargo.depart}</td>
                 <td class="border px-4 py-2">${cargo.arrivee}</td>
+                <td class="border px-4 py-2">${cargo.Ldepart}</td>
+                <td class="border px-4 py-2">${cargo.Larrivee}</td>
                 <td class="border px-4 py-2"><button class="btn-delete bg-red-500 text-white px-2 py-1 rounded" data-index="${index}">Supprimer</button></td>
                 <td class="border px-4 py-2"><button class="btn-details bg-blue-500 text-white px-2 py-1 rounded" data-index="${index}">Détails</button></td>
+                <td class="border px-4 py-2"><button class="btn-add-product bg-green-500 text-white px-2 py-1 rounded" data-index="${index}">Ajouter Produit</button></td>
             `;
             cargoTableBody.appendChild(newRow);
         });
@@ -49,8 +55,10 @@
         const distance = (document.getElementById('distance') as HTMLInputElement).value;
         const depart = (document.getElementById('depart') as HTMLInputElement).value;
         const arrivee = (document.getElementById('arrivee') as HTMLInputElement).value;
+         const Ldepart=(document.getElementById('Ldepart') as HTMLInputElement).value;
+         const Larrivee=(document.getElementById('Larrivee') as HTMLInputElement).value;
         
-        const newCargo: Cargo = { numero, type, poidsMax, distance, depart, arrivee };
+        const newCargo: Cargo = { numero, type, poidsMax, distance, depart, arrivee ,Ldepart,Larrivee};
         cargos.push(newCargo);
         saveToLocalStorage(cargos);
         displayCargos(cargos);
@@ -67,7 +75,12 @@
                 displayCargos(cargos);
             } else if (targetButton.classList.contains('btn-details')) {
                 alert(`Détails de la cargaison : ${JSON.stringify(cargos[cargoIndex])}`);
+            } else if (targetButton.classList.contains('btn-add-product')) {
+                // Logique pour ajouter un produit à la cargaison
+                const cargo = cargos[cargoIndex];
+                alert(`Ajouter un produit à la cargaison ${cargo.numero}`);
             }
         }
     });
+
 })();

@@ -51,6 +51,7 @@
 <body class="bg-gray-100">
   <nav class="nav-bg p-4 text-white">
     <div class="container mx-auto flex justify-between items-center">
+    <img src="../img/logo1.png" alt="" class="w-20">
       <h1 class="text-2xl font-bold">GP du Monde</h1>
       <div>
         <a href="#" class="text-white hover:text-gray-200 mx-2">Accueil</a>
@@ -59,9 +60,10 @@
       </div>
     </div>
   </nav>
-  <header class="hero-bg text-white">
+  <header class="hero-bg text-white bg-cover bg-center bg-no-repeat" style="background-image: url('../img/img3.jpg');">
+ 
     <div>
-      <h2 class="text-4xl font-bold mb-4">Bienvenue sur GP du Monde</h2>
+      <h2 class="text-3xl font-bold mb-4">Bienvenue sur GP du Monde</h2>
       <p class="text-xl mb-6">Votre solution de gestion de cargaisons mondiale</p>
       <a href="#services" class="btn-primary py-2 px-4 rounded">Découvrir nos services</a>
     </div>
@@ -73,17 +75,17 @@
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <a href="../gestion-cargaisons.html.php" class="service-card p-6 text-center">
-        <div class="service-img mb-4 rounded-t" style="background-image: url('https://source.unsplash.com/1600x900/?cargo,transport');"></div>
+        <div class="service-img mb-4 rounded-t" style="background-image: url('../img/img2.jpg');"></div>
         <h3 class="text-xl font-bold text-gray-800">Gérer les Cargaisons</h3>
         <p class="mt-2 text-gray-600">Créez et gérez vos cargaisons facilement.</p>
       </a>
       <a href="../estion-colis.html.php" class="service-card p-6 text-center">
-        <div class="service-img mb-4 rounded-t" style="background-image: url('https://source.unsplash.com/1600x900/?parcel,package');"></div>
+        <div class="service-img mb-4 rounded-t" style="background-image: url('../img/img6.jpg');"></div>
         <h3 class="text-xl font-bold text-gray-800">Gérer les Colis</h3>
         <p class="mt-2 text-gray-600">Enregistrez et suivez les colis de vos clients.</p>
       </a>
       <a href="../suivi-colis.html.php" class="service-card p-6 text-center">
-        <div class="service-img mb-4 rounded-t" style="background-image: url('https://source.unsplash.com/1600x900/?tracking,shipment');"></div>
+        <div class="service-img mb-4 rounded-t" style="background-image: url('../img/img5.jpg');"></div>
         <h3 class="text-xl font-bold text-gray-800">Suivi des Colis</h3>
         <p class="mt-2 text-gray-600">Suivez l'état d'avancement de vos colis.</p>
       </a>
